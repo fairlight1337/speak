@@ -1,0 +1,16 @@
+<package>
+  <description brief="speak">
+
+     speak
+
+  </description>
+  <author>Jan Winkler</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/speak</url>
+
+  <depend package="roscpp" />
+
+</package>
+
+
