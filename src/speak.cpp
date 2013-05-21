@@ -35,7 +35,7 @@ using namespace std;
 bool cbSpeakString(speak::Speak::Request &reqSpeak,
 		   speak::Speak::Response &resSpeak) {
   //cout << reqSpeak.message << endl;
-  string strCommand = "espeak -s 50 -p 50 " + reqSpeak.message;
+  string strCommand = "espeak -s 50 -p 50 \"" + reqSpeak.message + "\"";
   system(strCommand.c_str());
   
   return true;
