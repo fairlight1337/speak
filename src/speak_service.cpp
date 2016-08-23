@@ -1,4 +1,5 @@
 // Copyright (c) 2013, Jan Winkler <winkler@cs.uni-bremen.de>
+// Copyright (c) 2016, Georg Bartels <georg.bartels@cs.uni-bremen.de>
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -26,28 +27,26 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <ros/ros.h>
-
+#include <speak/speak.hpp>
 #include "speak/Speak.h"
 
 using namespace std;
 
 
 bool cbSpeakString(speak::Speak::Request &reqSpeak,
-		   speak::Speak::Response &resSpeak) {
-  //cout << reqSpeak.message << endl;
-  string strCommand = "espeak -s 50 -p 50 \"" + reqSpeak.message + "\"";
-  system(strCommand.c_str());
+		   speak::Speak::Response &resSpeak) 
+{
+  speak::speak_string(reqSpeak.message);
   
   return true;
 }
 
-
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "speak");
+  ros::init(argc, argv, "speak_service");
   ros::NodeHandle nhPrivate("~");
   
   if(ros::ok()) {
-    ros::ServiceServer srvSpeak = nhPrivate.advertiseService("speak_string", cbSpeakString);
+    ros::ServiceServer srvSpeak = nhPrivate.advertiseService("speak", cbSpeakString);
     
     ros::spin();
   }

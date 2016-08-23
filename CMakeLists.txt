@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(speak)
 
-find_package(catkin REQUIRED COMPONENTS roscpp message_generation)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs message_generation)
 
 add_service_files(
   FILES
@@ -17,6 +17,10 @@ include_directories(
   include
   ${catkin_INCLUDE_DIRS})
 
-add_executable(speak src/speak.cpp)
-target_link_libraries(speak ${catkin_LIBRARIES})
-add_dependencies(speak ${catkin_EXPORTED_TARGETS})
+add_executable(speak_service src/speak_service.cpp)
+target_link_libraries(speak_service ${catkin_LIBRARIES})
+add_dependencies(speak_service ${catkin_EXPORTED_TARGETS})
+
+add_executable(speak_listener src/speak_listener.cpp)
+target_link_libraries(speak_listener ${catkin_LIBRARIES})
+add_dependencies(speak_listener ${catkin_EXPORTED_TARGETS})
