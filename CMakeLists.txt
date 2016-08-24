@@ -1,31 +1,26 @@
-cmake_minimum_required(VERSION 2.4.6)
-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+cmake_minimum_required(VERSION 2.8.3)
+project(speak)
 
-# Set the build type.  Options are:
-#  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
-#  Debug          : w/ debug symbols, w/o optimization
-#  Release        : w/o debug symbols, w/ optimization
-#  RelWithDebInfo : w/ debug symbols, w/ optimization
-#  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
-#set(ROS_BUILD_TYPE RelWithDebInfo)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs message_generation)
 
-rosbuild_init()
+add_service_files(
+  FILES
+  Speak.srv)
 
-#set the default path for built executables to the "bin" directory
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-#set the default path for built libraries to the "lib" directory
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+generate_messages()
 
-#uncomment if you have defined messages
-#rosbuild_genmsg()
-#uncomment if you have defined services
-rosbuild_gensrv()
+catkin_package(
+  CATKIN_DEPENDS message_runtime espeak
+)
 
-#common commands for building c++ executables and libraries
-#rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
-#target_link_libraries(${PROJECT_NAME} another_library)
-#rosbuild_add_boost_directories()
-#rosbuild_link_boost(${PROJECT_NAME} thread)
-rosbuild_add_executable(speak
-  src/speak.cpp)
-#target_link_libraries(example ${PROJECT_NAME})
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS})
+
+add_executable(speak_service src/speak_service.cpp)
+target_link_libraries(speak_service ${catkin_LIBRARIES})
+add_dependencies(speak_service ${catkin_EXPORTED_TARGETS})
+
+add_executable(speak_listener src/speak_listener.cpp)
+target_link_libraries(speak_listener ${catkin_LIBRARIES})
+add_dependencies(speak_listener ${catkin_EXPORTED_TARGETS})

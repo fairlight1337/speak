@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>speak</name>
+  <version>0.0.2</version>
+  <description>
+    A ROS service interface to the espeak command-line program.
+  </description>
+
+  <author email="winkler@cs.uni-bremen.de">Jan Winkler</author>
+  <author email="georg.bartels@cs.uni-bremen.de">Georg Bartels</author>
+  <maintainer email="winkler@cs.uni-bremen.de">Jan Winkler</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>message_generation</depend>
+  <depend>message_runtime</depend>
+  <depend>espeak</depend>
+  <!--run_depend>espeak</run_depend-->
+</package>
